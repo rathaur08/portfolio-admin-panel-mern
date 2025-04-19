@@ -4,6 +4,7 @@ import { authRoute } from "./router/auth.router.js";
 const app = express();
 const PORT = process.env.PORT || 8000;
 
+app.use(express.json());
 // And Create new Route Api
 app.use("/api/auth", authRoute);
 
