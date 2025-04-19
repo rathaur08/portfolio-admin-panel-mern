@@ -1,7 +1,11 @@
 import express from "express";
+import { authRoute } from "./router/auth.router.js";
 
 const app = express();
 const PORT = process.env.PORT || 8000;
+
+// And Create new Route Api
+app.use("/api/auth", authRoute);
 
 app.get("/", (req, res) => {
   res.status(200).send("Home page");
