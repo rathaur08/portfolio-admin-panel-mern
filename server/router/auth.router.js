@@ -1,13 +1,17 @@
 import { Router } from "express";
+import * as authControllers from "../controllers/auth.controller.js";
+// import { getHomePage, getRegisterPage } from "../controllers/auth.controller.js";
 
 const router = Router();
 
-router.route("/").get((req, res) => {
-  res.status(200).send("Home page 'api/auth' router root");
-});
+router.route("/").get(authControllers.getHomePage);
 
-router.route("/register").get((req, res) => {
-  res.status(200).send("Register page");
+router.route("/register").get(authControllers.getRegisterPage);
+
+// 404 Page Not Found (Use router.use to handle all methods)
+router.use((req, res) => {
+  res.status(404).send("404 - Page Not Found",
+    { message: "this api root not found" });
 });
 
 export const authRoute = router;
