@@ -1,8 +1,12 @@
 import express from "express";
 import { authRoute } from "./router/auth.router.js";
+import { connectDB } from "./config/db.js";
 
 const app = express();
 const PORT = process.env.PORT || 8000;
+
+// connectDB to Database Function
+connectDB();
 
 app.use(express.json());
 // And Create new Route Api
