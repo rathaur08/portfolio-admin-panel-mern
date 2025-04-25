@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -25,6 +26,23 @@ const userSchema = new mongoose.Schema({
   timestamps: true
 });
 
+// Secure the password with the berypt
+userSchema.pre("save", async function (next) {
+  console.log("Pre Method", this);
+  const user = this
+  if (!user.isModified("password")) {
+    next();
+  }
+
+  try {
+    const saltRound = await bcrypt.genSalt(10);
+    const hash_password = await bcrypt.hash(user.password, saltRound);
+    user.password = hash_password;
+  } catch (error) {
+    next(error);
+  }
+
+})
 
 const User = mongoose.model('User', userSchema);
 export default User;
