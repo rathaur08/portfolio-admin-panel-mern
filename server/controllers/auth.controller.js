@@ -1,4 +1,5 @@
 import User from "../models/user.model.js";
+import bcrypt from "bcryptjs";
 
 export const getHomePage = (req, res) => {
 
@@ -23,9 +24,13 @@ export const postRegisterPage = async (req, res) => {
       return res.status(404).json({ msg: "Email Already Exists" })
     }
 
-    const userCreated = await User.create({ name, email, phone, password })
+    // HASH THE Password
+    const saltRound = 10;
+    const hash_password = await bcrypt.hash(password, saltRound);
 
-    res.status(200).json({userCreated });
+    const userCreated = await User.create({ name, email, phone, password: hash_password })
+
+    res.status(200).json({ userCreated });
   } catch (error) {
     res.status(404).json({ message: "Internal Server Error" });
     console.log(error);
