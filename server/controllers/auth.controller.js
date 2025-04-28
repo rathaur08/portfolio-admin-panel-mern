@@ -37,6 +37,35 @@ export const postRegisterPage = async (req, res) => {
     });
   } catch (error) {
     res.status(404).json({ message: "Internal Server Error" });
-    console.log(error);
+    console.error(error);
   }
 };
+
+// postLoginPage
+export const postLoginPage = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Check Email 
+    const userExist = await User.findOne({ email });
+
+    if (!userExist) {
+      return res.status(404).json({ msg: "Invalid Credentials!" })
+    }
+
+    const user = await bcrypt.compare(password, userExist.password);
+
+    if (user) {
+      res.status(201).json({
+        msg: "User Login Successfully",
+        token: await userExist.generateToken(),
+        userId: userExist._id.toString(),
+      });
+    } else {
+      res.status(401).json({ message: "Invalid email or password!" });
+    }
+  } catch (error) {
+    res.status(404).json({ message: "Internal Server Error" });
+    console.error(error);
+  }
+}

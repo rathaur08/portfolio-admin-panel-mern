@@ -7,6 +7,7 @@ const router = Router();
 router.route("/").get(authControllers.getHomePage);
 
 router.route("/register").post(authControllers.postRegisterPage);
+router.route("/login").post(authControllers.postLoginPage);
 
 // 404 Page Not Found (Use router.use to handle all methods)
 router.use((req, res) => {
