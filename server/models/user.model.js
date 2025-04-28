@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+import jsonwebtoken from "jsonwebtoken";
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -43,6 +44,25 @@ userSchema.pre("save", async function (next) {
   }
 
 })
+
+// Json Web Token
+userSchema.methods.generateToken = function () {
+  try {
+    return jsonwebtoken.sign({
+      userId: this._id.toString(),
+      email: this.email,
+      isAdmin: this.isAdmin,
+    },
+      process.env.JWT_SECRECT_KEY,
+      {
+        expiresIn: "30d",
+      }
+    )
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
 const User = mongoose.model('User', userSchema);
 export default User;

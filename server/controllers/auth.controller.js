@@ -30,7 +30,11 @@ export const postRegisterPage = async (req, res) => {
 
     const userCreated = await User.create({ name, email, phone, password })
 
-    res.status(201).json({ userCreated });
+    res.status(201).json({
+      msg: "User Registration Successfully",
+      token: await userCreated.generateToken(),
+      userId: userCreated._id.toString(),
+    });
   } catch (error) {
     res.status(404).json({ message: "Internal Server Error" });
     console.log(error);
