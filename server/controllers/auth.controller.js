@@ -10,7 +10,7 @@ export const getHomePage = (req, res) => {
   }
 };
 
-export const postRegisterPage = async (req, res) => {
+export const postRegisterPage = async (req, res, next) => {
 
   try {
     // console.log(req.body);
@@ -36,8 +36,9 @@ export const postRegisterPage = async (req, res) => {
       userId: userCreated._id.toString(),
     });
   } catch (error) {
-    res.status(404).json({ message: "Internal Server Error" });
+    // res.status(404).json({ message: "Internal Server Error" });
     console.error(error);
+    next(error);
   }
 };
 

@@ -1,6 +1,7 @@
 import express from "express";
 import { authRoute } from "./router/auth.router.js";
 import { connectDB } from "./config/db.js";
+import { errorMiddleware } from "./middlewares/error.middleware.js";
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -11,6 +12,8 @@ connectDB();
 app.use(express.json());
 // And Create new Route Api
 app.use("/api/auth", authRoute);
+
+app.use(errorMiddleware);
 
 app.get("/", (req, res) => {
   res.status(200).send("Home page");
