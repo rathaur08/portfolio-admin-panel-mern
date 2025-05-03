@@ -1,5 +1,6 @@
 import express from "express";
 import { authRoute } from "./router/auth.router.js";
+import { contactRoute } from "./router/contact.router.js"
 import { connectDB } from "./config/db.js";
 import { errorMiddleware } from "./middlewares/error.middleware.js";
 
@@ -12,6 +13,7 @@ connectDB();
 app.use(express.json());
 // And Create new Route Api
 app.use("/api/auth", authRoute);
+app.use("/api/form", contactRoute)
 
 app.use(errorMiddleware);
 
@@ -23,6 +25,8 @@ app.get("/register", (req, res) => {
   res.status(200).send("Register page");
 });
 
+// connectDB().then(()=>{
+// })
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
