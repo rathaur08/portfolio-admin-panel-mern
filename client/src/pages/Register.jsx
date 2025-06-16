@@ -10,7 +10,6 @@ const Register = () => {
   });
 
   const handleInput = (e) => {
-    console.log("e",e);
     let name = e.target.name;
     let value = e.target.value;
 
@@ -51,6 +50,7 @@ const Register = () => {
                       <input
                         type="text"
                         name="name"
+                        className="form-control"
                         value={user.name}
                         onChange={handleInput}
                         placeholder="name"
@@ -61,6 +61,7 @@ const Register = () => {
                       <input
                         type="text"
                         name="email"
+                        className="form-control"
                         value={user.email}
                         onChange={handleInput}
                         placeholder="email"
@@ -71,6 +72,7 @@ const Register = () => {
                       <input
                         type="number"
                         name="phone"
+                        className="form-control"
                         value={user.phone}
                         onChange={handleInput}
                       />
@@ -80,13 +82,14 @@ const Register = () => {
                       <input
                         type="password"
                         name="password"
+                        className="form-control"
                         value={user.password}
                         onChange={handleInput}
                         placeholder="password"
                       />
                     </div>
                     <br />
-                    <button type="submit" className="btn btn-submit">
+                    <button type="submit" className="btn btn-primary">
                       Register Now
                     </button>
                   </form>
