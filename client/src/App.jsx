@@ -7,6 +7,7 @@ import ContactUs from './pages/ContactUs';
 import Services from './pages/Services';
 import Register from './pages/Register';
 import Login from './pages/Login';
+import ErrorPage from './pages/404';
 
 const App = () => {
   return (
@@ -20,7 +21,7 @@ const App = () => {
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/*" />
+          <Route path="/*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
     </>
