@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
+import { useAuth } from '../store/auth';
 
 const Login = () => {
+
+  const { storeTokenInLS } = useAuth()
 
   const [user, setUser] = useState({
     email: "",
@@ -34,6 +37,9 @@ const Login = () => {
       }
 
       const data = await response.json();
+
+      storeTokenInLS(data.token);
+      // localStorage.setItem("token", data.token);
       console.log("Login successful:", data);
       // You can redirect or show a success message here
     } catch (error) {
