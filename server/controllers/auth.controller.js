@@ -79,7 +79,7 @@ export const getUserPage = (req, res) => {
     const userData = req.user;
     console.log("userData", userData);
 
-    res.status(200).json({ msg: userData });
+    res.status(200).json({ userData });
   } catch (error) {
     res.status(404).json({ message: "Internal Server Error" });
     console.error(error);
