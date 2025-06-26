@@ -71,3 +71,17 @@ export const postLoginPage = async (req, res) => {
     console.error(error);
   }
 }
+
+// getUserPage
+export const getUserPage = (req, res) => {
+
+  try {
+    const userData = req.user;
+    console.log("userData", userData);
+
+    res.status(200).json({ msg: userData });
+  } catch (error) {
+    res.status(404).json({ message: "Internal Server Error" });
+    console.error(error);
+  }
+};
