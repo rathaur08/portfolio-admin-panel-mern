@@ -30,10 +30,10 @@ const ContactUs = () => {
     let name = e.target.name;
     let value = e.target.value;
 
-    // setContact({
-    //   ...contact,
-    //   [name]: value,
-    // });
+    setContact({
+      ...contact,
+      [name]: value,
+    });
 
     setContact((prev) => ({
       ...prev,
@@ -43,9 +43,27 @@ const ContactUs = () => {
   };
 
   // handle form on submit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(contact);
+    try {
+      const response = await fetch("http://localhost:8000/api/form/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(contact),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Contact successful:", data);
+      // You can redirect or show a success message here
+    } catch (error) {
+      console.error("Error during registration:", error);
+    }
   };
 
   return (
