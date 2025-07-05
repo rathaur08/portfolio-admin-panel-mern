@@ -4,6 +4,7 @@ import { authRoute } from "./router/auth.router.js";
 import { contactRoute } from "./router/contact.router.js"
 import { connectDB } from "./config/db.js";
 import { errorMiddleware } from "./middlewares/error.middleware.js";
+import { serviceRoute } from "./router/service.router.js";
 
 const app = express();
 
@@ -23,7 +24,8 @@ connectDB();
 app.use(express.json());
 // And Create new Route Api
 app.use("/api/auth", authRoute);
-app.use("/api/form", contactRoute)
+app.use("/api/form", contactRoute);
+app.use("/api/data", serviceRoute);
 
 app.use(errorMiddleware);
 
