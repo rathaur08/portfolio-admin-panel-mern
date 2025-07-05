@@ -6,6 +6,7 @@ export const AuthProvider = ({ children }) => {
 
   const [token, setToken] = useState(localStorage.getItem("token"))
   const [user, setUser] = useState("");
+  const [services, setServices] = useState("");
 
   const storeTokenInLS = (serverToken) => {
     return localStorage.setItem("token", serverToken)
@@ -39,7 +40,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       const data = await response.json();
-      console.log("user Store Data", data.userData);
+      // console.log("user Store Data", data.userData);
       setUser(data.userData);
 
     } catch (error) {
@@ -47,12 +48,34 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+
+  // get Services data in backend
+  const getServices = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/api/data/service", {
+        method: "GET",
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("setServices Data", data.msg);
+      setServices(data.msg);
+
+    } catch (error) {
+      console.error("Error during fatching user data:", error);
+    }
+  }
+
   useEffect(() => {
+    getServices();
     userAuthentaction();
   }, [])
 
   return (
-    <AuthContext.Provider value={{ storeTokenInLS, LogoutUser, isLoggedin, user }}>
+    <AuthContext.Provider value={{ storeTokenInLS, LogoutUser, isLoggedin, user, services }}>
       {children}
     </AuthContext.Provider>
   )

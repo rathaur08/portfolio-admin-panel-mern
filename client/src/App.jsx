@@ -10,6 +10,8 @@ import Login from './pages/Login';
 import Logout from './pages/Logout';
 import ErrorPage from './pages/404';
 
+import "./App.css";
+
 const App = () => {
   return (
     <>
