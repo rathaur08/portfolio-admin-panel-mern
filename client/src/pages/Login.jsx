@@ -37,13 +37,18 @@ const Login = () => {
       }
 
       const data = await response.json();
-
-      storeTokenInLS(data.token);
-      // localStorage.setItem("token", data.token);
       console.log("Login successful:", data);
-      // You can redirect or show a success message here
+
+      if (response.ok) {
+        storeTokenInLS(data.token);
+        // localStorage.setItem("token", data.token);
+        // You can redirect or show a success message here
+        // navigate("/");
+      } else {
+        alert("Error login missing Field:", data.extraDetails ? data.extraDetails : data.message)
+      }
     } catch (error) {
-      console.error("Error during registration:", error);
+      console.error("Error during login:", error);
     }
   };
 

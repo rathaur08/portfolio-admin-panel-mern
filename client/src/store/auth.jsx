@@ -61,8 +61,8 @@ export const AuthProvider = ({ children }) => {
       }
 
       const data = await response.json();
-      console.log("setServices Data", data.msg);
-      setServices(data.msg);
+      console.log("setServices Data", data.message);
+      setServices(data.message);
 
     } catch (error) {
       console.error("Error during fatching user data:", error);

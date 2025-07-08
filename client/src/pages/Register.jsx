@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { useAuth } from '../store/auth';
+import { useNavigate } from "react-router";
 
 const Register = () => {
 
-  const { storeTokenInLS } = useAuth()
+  const { storeTokenInLS } = useAuth();
+  const navigate = useNavigate();
 
   const [user, setUser] = useState({
     name: "",
@@ -39,12 +41,17 @@ const Register = () => {
       }
 
       const data = await response.json();
-
-      storeTokenInLS(data.token);
-      // localStorage.setItem("token", data.token);
-
       console.log("Registration successful:", data);
-      // You can redirect or show a success message here
+
+      if (response.ok) {
+        storeTokenInLS(data.token);
+        // localStorage.setItem("token", data.token);
+        // You can redirect or show a success message here
+        navigate("/");
+      } else {
+        alert("Error registration missing Field:", data.extraDetails ? data.extraDetails : data.message)
+      }
+
     } catch (error) {
       console.error("Error during registration:", error);
     }
