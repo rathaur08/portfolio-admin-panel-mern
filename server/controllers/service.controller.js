@@ -11,7 +11,7 @@ export const getServices = async (req, res) => {
       return
     }
 
-    res.status(200).json({ msg: response });
+    res.status(200).json({ message: response });
   } catch (error) {
     res.status(404).json({ message: "Internal Server Error" });
     console.error(error);

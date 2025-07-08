@@ -18,7 +18,7 @@ export const validate = (schema) => async (req, res, next) => {
     }
 
     // console.log(message);
-    // res.status(400).json({ msg: message });
+    // res.status(400).json({ message: message });
     next(error);
   }
 }

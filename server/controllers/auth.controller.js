@@ -21,7 +21,7 @@ export const postRegisterPage = async (req, res, next) => {
     const userExist = await User.findOne({ email });
 
     if (userExist) {
-      return res.status(404).json({ msg: "Email Already Exists" })
+      return res.status(404).json({ message: "Email Already Exists" })
     }
 
     // HASH THE Password
@@ -31,7 +31,8 @@ export const postRegisterPage = async (req, res, next) => {
     const userCreated = await User.create({ name, email, phone, password })
 
     res.status(201).json({
-      msg: "User Registration Successfully",
+      status: "200",
+      message: "User Registration Successfully",
       token: await userCreated.generateToken(),
       userId: userCreated._id.toString(),
     });
@@ -51,7 +52,7 @@ export const postLoginPage = async (req, res) => {
     const userExist = await User.findOne({ email });
 
     if (!userExist) {
-      return res.status(404).json({ msg: "Invalid Credentials!" })
+      return res.status(404).json({ message: "Invalid Credentials!" })
     }
 
     // const user = await bcrypt.compare(password, userExist.password);
@@ -59,7 +60,7 @@ export const postLoginPage = async (req, res) => {
 
     if (user) {
       res.status(201).json({
-        msg: "User Login Successfully",
+        message: "User Login Successfully",
         token: await userExist.generateToken(),
         userId: userExist._id.toString(),
       });
