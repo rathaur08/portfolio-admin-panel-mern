@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useAuth } from '../store/auth';
 import { useNavigate } from "react-router";
+import { toast } from 'react-toastify';
 
 const Register = () => {
 
@@ -47,12 +48,16 @@ const Register = () => {
         storeTokenInLS(data.token);
         // localStorage.setItem("token", data.token);
         // You can redirect or show a success message here
+        toast.success("Registration successful!");
+        toast.success("Registration successful:", data.message);
+        // or if you want to redirect to the home page:
         navigate("/");
       } else {
         alert("Error registration missing Field:", data.extraDetails ? data.extraDetails : data.message)
       }
 
     } catch (error) {
+      toast.error("Error during registration:", error.message);
       console.error("Error during registration:", error);
     }
   };

@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import { useAuth } from '../store/auth';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const navigate = useNavigate();
 
   const { storeTokenInLS } = useAuth()
 
@@ -43,9 +46,15 @@ const Login = () => {
         storeTokenInLS(data.token);
         // localStorage.setItem("token", data.token);
         // You can redirect or show a success message here
-        // navigate("/");
+        toast.success("Login successful!");
+        console.log("Login successful:", data.message);
+        // or if you want to redirect to the home page:
+        navigate("/");
+
       } else {
         alert("Error login missing Field:", data.extraDetails ? data.extraDetails : data.message)
+        toast.error("Error login missing Field:", data.extraDetails ? data.extraDetails : data.message);
+        console.error("Login failed:", data.message);
       }
     } catch (error) {
       console.error("Error during login:", error);
