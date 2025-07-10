@@ -3,7 +3,7 @@ import * as authControllers from "../controllers/auth.controller.js";
 import { signupSchema } from "../validators/auth.validator.js";
 import { validate } from "../middlewares/validate.middleware.js";
 // import { getHomePage, getRegisterPage } from "../controllers/auth.controller.js";
-import {authMiddleware} from "../middlewares/auth.middleware.js"
+import { authMiddleware } from "../middlewares/auth.middleware.js"
 
 const router = Router();
 
