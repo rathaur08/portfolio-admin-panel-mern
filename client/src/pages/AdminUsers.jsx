@@ -33,6 +33,35 @@ const AdminUsers = () => {
     }
   }
 
+  // deleteUser Function on Click Button
+  const deleteUser = async (id) => {
+    console.log(id);
+    try {
+      const response = await fetch(`http://localhost:8000/api/admin/users/delete/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: authorizationToken,
+        },
+        body: JSON.stringify(),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Data Delete", data);
+
+      if (response.ok) {
+        getAllUsersdata();
+      }
+
+
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
+  }
+
   useEffect(() => {
     getAllUsersdata();
   }, []);
@@ -65,7 +94,7 @@ const AdminUsers = () => {
                     <td>{user.isAdmin ? "Yes" : "No"}</td>
                     <td>
                       <button type="button" className="btn btn-primary btn-sm me-2">Update</button>
-                      <button type="button" className="btn btn-danger btn-sm">Delete</button>
+                      <button type="button" className="btn btn-danger btn-sm" onClick={() => deleteUser(user._id)}>Delete</button>
                     </td>
                   </tr>
                 ))}
