@@ -6,6 +6,7 @@ export const AuthProvider = ({ children }) => {
 
   const [token, setToken] = useState(localStorage.getItem("token"))
   const [user, setUser] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const [services, setServices] = useState("");
   const authorizationToken = `Bearer ${token}`;
 
@@ -28,6 +29,7 @@ export const AuthProvider = ({ children }) => {
   // JWT AUTHENTICATION to get the currently loggedin user data
   const userAuthentaction = async () => {
     try {
+      setIsLoading(true);
       const response = await fetch("http://localhost:8000/api/auth/user", {
         method: "GET",
         headers: {
@@ -44,7 +46,7 @@ export const AuthProvider = ({ children }) => {
       const data = await response.json();
       // console.log("user Store Data", data.userData);
       setUser(data.userData);
-
+      setIsLoading(false);
     } catch (error) {
       console.error("Error during fatching user data:", error);
     }
@@ -77,7 +79,7 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ storeTokenInLS, LogoutUser, isLoggedin, user, services, authorizationToken }}>
+    <AuthContext.Provider value={{ storeTokenInLS, LogoutUser, isLoggedin, user, services, authorizationToken, isLoading }}>
       {children}
     </AuthContext.Provider>
   )
