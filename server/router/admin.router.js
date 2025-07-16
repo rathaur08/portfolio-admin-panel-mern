@@ -13,7 +13,7 @@ router.route("/users/update/:id").patch(authMiddleware, adminMiddleware, adminCo
 
 router.route("/users/delete/:id").delete(authMiddleware, adminMiddleware, adminController.deleteUserById);
 
-router.route("/contacts").get(authMiddleware, adminController.getAllContacts);
+router.route("/contacts").get(authMiddleware, adminMiddleware, adminController.getAllContacts);
 
 
 export const adminRoute = router;
