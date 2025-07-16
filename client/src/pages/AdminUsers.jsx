@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../store/auth';
+import { Link } from 'react-router-dom';
 
 
 const AdminUsers = () => {
@@ -93,7 +94,7 @@ const AdminUsers = () => {
                     <td>{user.phone}</td>
                     <td>{user.isAdmin ? "Yes" : "No"}</td>
                     <td>
-                      <button type="button" className="btn btn-primary btn-sm me-2">Update</button>
+                      <Link type="button" to={`/admin/users/${user._id}/edit`} className="btn btn-primary btn-sm me-2">Update</Link>
                       <button type="button" className="btn btn-danger btn-sm" onClick={() => deleteUser(user._id)}>Delete</button>
                     </td>
                   </tr>
