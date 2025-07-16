@@ -32,7 +32,7 @@ const AdminContacts = () => {
 
   // deleteContact Function on Click Button
   const deleteContact = async (id) => {
-    console.log(id);
+    // console.log(id);
     try {
       const response = await fetch(`http://localhost:8000/api/admin/contacts/delete/${id}`, {
         method: "DELETE",
@@ -46,7 +46,7 @@ const AdminContacts = () => {
       }
 
       const data = await response.json();
-      console.log("Data Delete", data);
+      // console.log("Data Delete", data);
 
       if (response.ok) {
         fetchContacts();

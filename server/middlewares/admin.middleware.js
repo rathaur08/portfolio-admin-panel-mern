@@ -4,7 +4,7 @@ export const adminMiddleware = (req, res, next) => {
   // Check if the user is authenticated
   try {
 
-    console.log("User Data:", req.user.isAdmin);
+    // console.log("User Data:", req.user.isAdmin);
     const adminRole = req.user.isAdmin;
 
     if (!adminRole) {

@@ -10,7 +10,7 @@ const AdminUpdateUser = () => {
   const { id } = useParams();
 
   const [user, setUser] = useState(null);
-  console.log("data user: ", user);
+  // console.log("data user: ", user);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -28,7 +28,7 @@ const AdminUpdateUser = () => {
         });
         if (!response.ok) throw new Error('User not found');
         const Userdata = await response.json();
-        console.log("data: ", Userdata.data);
+        // console.log("data: ", Userdata.data);
         setUser(Userdata.data);
       } catch (err) {
         setError(err.message);

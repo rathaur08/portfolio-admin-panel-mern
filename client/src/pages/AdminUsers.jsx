@@ -7,7 +7,7 @@ const AdminUsers = () => {
 
   const { authorizationToken } = useAuth()
   const [adminUserData, setAdminUserData] = useState("");
-  console.log("Admin User data:", adminUserData);
+  // console.log("Admin User data:", adminUserData);
 
 
   const getAllUsersdata = async () => {
@@ -36,7 +36,7 @@ const AdminUsers = () => {
 
   // deleteUser Function on Click Button
   const deleteUser = async (id) => {
-    console.log(id);
+    // console.log(id);
     try {
       const response = await fetch(`http://localhost:8000/api/admin/users/delete/${id}`, {
         method: "DELETE",
@@ -51,7 +51,7 @@ const AdminUsers = () => {
       }
 
       const data = await response.json();
-      console.log("Data Delete", data);
+      // console.log("Data Delete", data);
 
       if (response.ok) {
         getAllUsersdata();

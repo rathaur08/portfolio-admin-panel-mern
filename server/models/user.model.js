@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
 
 // Secure the password with the berypt
 userSchema.pre("save", async function (next) {
-  console.log("Pre Method", this);
+  // console.log("Pre Method", this);
   const user = this
   if (!user.isModified("password")) {
     next();
@@ -64,7 +64,7 @@ userSchema.methods.generateToken = function () {
       }
     )
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 

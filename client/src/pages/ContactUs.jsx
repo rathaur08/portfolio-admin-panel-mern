@@ -59,7 +59,7 @@ const ContactUs = () => {
       }
 
       const data = await response.json();
-      console.log("Contact successful:", data);
+      // console.log("Contact successful:", data);
       // You can redirect or show a success message here
     } catch (error) {
       console.error("Error during registration:", error);

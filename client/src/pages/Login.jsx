@@ -40,14 +40,14 @@ const Login = () => {
       }
 
       const data = await response.json();
-      console.log("Login successful:", data);
+      // console.log("Login successful:", data);
 
       if (response.ok) {
         storeTokenInLS(data.token);
         // localStorage.setItem("token", data.token);
         // You can redirect or show a success message here
         toast.success("Login successful!");
-        console.log("Login successful:", data.message);
+        // console.log("Login successful:", data.message);
         // or if you want to redirect to the home page:
         navigate("/");
 

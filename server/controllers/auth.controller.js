@@ -6,7 +6,7 @@ export const getHomePage = (req, res) => {
   try {
     res.status(200).send("Home page 'api/auth' router root.");
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -78,7 +78,7 @@ export const getUserPage = (req, res) => {
 
   try {
     const userData = req.user;
-    console.log("userData", userData);
+    // console.log("userData", userData);
 
     res.status(200).json({ userData });
   } catch (error) {

@@ -42,7 +42,7 @@ const Register = () => {
       }
 
       const data = await response.json();
-      console.log("Registration successful:", data);
+      // console.log("Registration successful:", data);
 
       if (response.ok) {
         storeTokenInLS(data.token);
