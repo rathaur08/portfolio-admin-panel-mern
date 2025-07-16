@@ -121,7 +121,7 @@ export const deleteUserById = async (req, res) => {
 }
 
 // Function to get all contacts, getAllContacts
-export const getAllContacts = async (req, res, next) => {
+export const getAllContacts = async (req, res) => {
   try {
     // Assuming you have a Contact model to fetch contacts
     const allContacts = await Contact.find();
@@ -146,4 +146,28 @@ export const getAllContacts = async (req, res, next) => {
       message: "Internal Server Error",
     });
   }
+}
+
+// deleteContactById
+// Function to get all contacts, getAllContacts
+export const deleteContactById = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    await Contact.deleteOne({ _id: id })
+
+    return res.status(200).json({
+      status: "200",
+      message: "Contact Deleted",
+    });
+
+  } catch (error) {
+    return res.status(500).json({
+      status: "500",
+      message: "Internal Server Error",
+    });
+    console.error(error);
+    next(error);
+  }
+
 }
