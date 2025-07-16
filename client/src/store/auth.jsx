@@ -7,8 +7,12 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"))
   const [user, setUser] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [services, setServices] = useState("");
+  const [services, setServices] = useState([]);
   const authorizationToken = `Bearer ${token}`;
+
+  // For Vite projects, use import.meta.env; for Create React App, use process.env.REACT_APP_API_URL
+  const API = import.meta.env.API_URL;
+  // console.log("API", API);
 
   const storeTokenInLS = (serverToken) => {
     setToken(serverToken);
@@ -65,7 +69,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       const data = await response.json();
-      console.log("setServices Data", data.message);
+      // console.log("setServices Data", data.message);
       setServices(data.message);
 
     } catch (error) {
@@ -79,7 +83,7 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ storeTokenInLS, LogoutUser, isLoggedin, user, services, authorizationToken, isLoading }}>
+    <AuthContext.Provider value={{ storeTokenInLS, LogoutUser, isLoggedin, user, services, authorizationToken, isLoading, API }}>
       {children}
     </AuthContext.Provider>
   )
