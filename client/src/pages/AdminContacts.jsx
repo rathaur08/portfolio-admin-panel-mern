@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useAuth } from '../store/auth';
 
 const AdminContacts = () => {
@@ -11,14 +12,12 @@ const AdminContacts = () => {
     const fetchContacts = async () => {
       setLoading(true);
       try {
-        const res = await fetch('http://localhost:8000/api/admin/contacts', {
-          method: 'GET',
+        const res = await axios.get('http://localhost:8000/api/admin/contacts', {
           headers: {
             Authorization: authorizationToken,
           },
         });
-        const data = await res.json();
-        setContacts(data.data || []);
+        setContacts(res.data.data || []);
       } catch (error) {
         setContacts([]);
         console.error(error);
