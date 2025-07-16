@@ -2,28 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../store/auth';
 
 const AdminContacts = () => {
-
   const { authorizationToken } = useAuth();
 
   const [contacts, setContacts] = useState([]);
-  console.log("contacts Data", contacts);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Replace the URL with your actual API endpoint
-    fetch(`http://localhost:8000/api/admin/contacts`, {
-      method: "GET",
-      headers: {
-        Authorization: authorizationToken,
-      },
-      body: JSON.stringify(),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setContacts(data.data);
+    const fetchContacts = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch('http://localhost:8000/api/admin/contacts', {
+          method: 'GET',
+          headers: {
+            Authorization: authorizationToken,
+          },
+        });
+        const data = await res.json();
+        setContacts(data.data || []);
+      } catch (error) {
+        setContacts([]);
+        console.error(error);
+      } finally {
         setLoading(false);
-      })
-      .catch(() => setLoading(false));
+      }
+    };
+
+    fetchContacts();
   }, [authorizationToken]);
 
   return (
@@ -44,14 +48,22 @@ const AdminContacts = () => {
               </tr>
             </thead>
             <tbody>
-              {contacts && contacts.map((contact, idx) => (
-                <tr key={contact._id}>
-                  <td>{idx + 1}</td>
-                  <td>{contact.name}</td>
-                  <td>{contact.email}</td>
-                  <td>{contact.message}</td>
+              {contacts && contacts.length > 0 ? (
+                contacts.map((contact, idx) => (
+                  <tr key={contact._id || idx}>
+                    <td>{idx + 1}</td>
+                    <td>{contact.name}</td>
+                    <td>{contact.email}</td>
+                    <td>{contact.message}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="4" className="text-center">
+                    No contacts found.
+                  </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
